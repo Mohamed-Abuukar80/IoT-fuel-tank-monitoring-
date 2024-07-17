@@ -1,0 +1,103 @@
+qeybta macalinka ii sheegaaye inaa ku daro 
+
+inaa aproval sheedt ku daro
+
+
+inaa codes ka githup saaro tests ka 
+
+
+unit test 
+Code Snippets of Unit Test
+#include <ArduinoUnit.h>
+// including main project code
+#include " IoT_based_remote_fuel_tank_monitoring_code.h"
+
+test(SR04_test) {
+  // Arrange
+  int expectedDepth = 20;
+  int expectedLevel = 50;
+  // Act
+  long level = depth - 10; // Simulate a distance of 10 cm
+  level = map(level, 0, depth - 3, 100, 0);
+  // Assert
+  assertEqual(level, expectedLevel);
+}
+void setup() {
+  Serial.begin(9600);
+  Test.begin();
+}
+void loop() {
+  Test.run();
+}
+
+
+
+
+
+
+integration test
+Code Snippets of integration Test
+#include <ArduinoUnit.h>
+#include <BlynkSimpleEsp8266.h>
+#include <LiquidCrystal.h>
+
+// include main project code
+#include " IoT_based_remote_fuel_tank_monitoring_code.h"
+test(integration_test) {
+  // Arrange
+  int expectedDistance = 15;
+  int expectedLevel = 75;
+  // Act
+  long distance = expectedDistance;
+  long level = map(depth - distance, 0, depth - 3, 100, 0);
+  // Assert
+  assertEqual(level, expectedLevel);
+  // Check LCD output
+  lcd.setCursor(0, 0);
+  assertEqual(lcd.printoutput, "Distance: 15 cm");
+  // Check Blynk output
+  assertEqual(Blynk.virtualWrite(V7, expectedLevel), true);
+}
+void setup() {
+  Serial.begin(9600);
+  Test.begin();
+}
+void loop() {
+  Test.run();
+}
+
+
+
+
+system test 
+Code Snippets of System Test
+#include <ArduinoUnit.h>
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+#include <LiquidCrystal.h>
+// Include  main project code
+#include " IoT_based_remote_fuel_tank_monitoring_code.h"
+test(system_test) {
+  // Arrange
+  int expectedDepth = 20;
+  int expectedMinLevel = 0;
+  int expectedMaxLevel = 100;
+  // Act
+  bool wifiConnected = (WiFi.status() == WL_CONNECTED);
+  assertTrue(wifiConnected);
+  bool blynkConnected = Blynk.connected();
+  assertTrue(blynkConnected);
+  long distance = 5; // Simulate a distance of 5 cm
+  long level = map(depth - distance, 0, depth - 3, 100, 0);
+  assertTrue(level >= expectedMinLevel && level <= expectedMaxLevel);
+  // Check LCD output
+  lcd.setCursor(0, 0);
+  assertEqual(lcd.printoutput, "Distance: 5 cm");
+}
+void setup() {
+  Serial.begin(9600);
+  Test.begin();
+}
+void loop() {
+  Test.run();
+}
