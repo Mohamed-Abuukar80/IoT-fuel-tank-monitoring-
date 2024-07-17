@@ -1,12 +1,4 @@
-qeybta macalinka ii sheegaaye inaa ku daro 
-
-inaa aproval sheedt ku daro
-
-
-inaa codes ka githup saaro tests ka 
-
-
-unit test 
+---unit test 
 Code Snippets of Unit Test
 #include <ArduinoUnit.h>
 // including main project code
@@ -35,7 +27,7 @@ void loop() {
 
 
 
-integration test
+---integration test
 Code Snippets of integration Test
 #include <ArduinoUnit.h>
 #include <BlynkSimpleEsp8266.h>
@@ -69,7 +61,7 @@ void loop() {
 
 
 
-system test 
+---system test 
 Code Snippets of System Test
 #include <ArduinoUnit.h>
 #include <ESP8266WiFi.h>
